@@ -20,7 +20,10 @@
   </head>
   <body>
     <main id="main">
-      <a href="#" onclick="getRepositories()"> Get Repositories </a>
+      <form onsubmit="getRepositories(); return false">
+      <input type="text" id="searchTerms">
+      <input type="submit" value="Get Repositories">
+    </form>
       <div id="errors"></div>
     </main>
     <div class="flexbox-container">
