@@ -11,7 +11,7 @@ $.get(`https://api.github.com/search/repositories?q=${searchTerms}`, function(da
   var img = `<img height="50"src="${repo.owner.avatar_url}"><br>`
   let login = `Login: ${repo.owner.login}<br>`
   let search = `<h2>Search for: ${searchTerms}</h2>`
-  var displayData = `${search}${img} ${login} ${repo.name} - ${repo.description} - ${repo.html_url}<br> <a data-owner="${repo.owner.login}" data-name="${repo.name}"href="#" onclick="showCommits(this)">Show Commits</a>`
+  var displayData = `${search}${img} ${login} ${repo.name} - ${repo.description} - ${repo.html_url}<br> <a data-owner="${repo.owner.login}" data-repository="${repo.name}"href="#" onclick="showCommits(this)">Show Commits</a>`
     $('#results').html(`${displayData}`)
 }).fail(function(){
     displayError()
@@ -19,7 +19,7 @@ $.get(`https://api.github.com/search/repositories?q=${searchTerms}`, function(da
 }
 
 function showCommits(el){
-  let repository = el.dataset.name
+  let repo = el.dataset.repository
   let owner = el.dataset.owner
   $.get((`https://api.github.com/repos/${owner}/${repo}/commits`), function(data){
     let commitsList = '<ul>'
