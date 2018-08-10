@@ -15,7 +15,7 @@ $.get(`https://api.github.com/search/repositories?q=${searchTerms}`, function(da
     $('#results').html(`${displayData}`)
 })
   .fail(function(){
-    displayError
+    displayError()
   })
 }
 
