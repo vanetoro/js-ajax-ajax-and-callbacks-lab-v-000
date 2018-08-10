@@ -32,7 +32,6 @@ function showCommits(){
      })
      commitsList +="</ul>"
      $('#details').html(`${commitsList}`)
-
   })
 }
 
