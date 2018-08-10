@@ -13,8 +13,7 @@ $.get(`https://api.github.com/search/repositories?q=${searchTerms}`, function(da
   let search = `<h2>Search for: ${searchTerms}</h2>`
   var displayData = `${search}${img} ${login} ${repo.name} - ${repo.description} - ${repo.html_url}<br> <a data-owner="${repo.owner.login}" data-name="${repo.name}"href="#" onclick="showCommits(this)">Show Commits</a>`
     $('#results').html(`${displayData}`)
-})
-  .fail(function(){
+}).fail(function(){
     displayError()
   })
 }
@@ -32,7 +31,9 @@ function showCommits(){
      })
      commitsList +="</ul>"
      $('#details').html(`${commitsList}`)
-  })
+  }).fail(function(){
+      displayError()
+    })
 }
 
 // function searchRepositories() {
