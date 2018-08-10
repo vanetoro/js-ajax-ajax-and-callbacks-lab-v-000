@@ -19,6 +19,23 @@ $.get(`https://api.github.com/search/repositories?q=${searchTerms}`, function(da
   })
 }
 
+function showCommits(){
+  let repo = el.dataset.name
+  let owner = el.dataset.owner
+  $.get((`https://api.github.com/repos/${owner}/${repo}/commits`), function(data){
+    let commitsList = '<ul>'
+    data.map(function(d){
+      let img = `<img height="50" src = "${d.author.avatar_url}">`
+      let sha = `Sha: ${d.sha}<br>`
+      let login = `Login: ${d.author.login }<br>`
+        return  commitsList +=`<li>${img} Owner: ${owner}<br> ${login} ${sha}</li>`
+     })
+     commitsList +="</ul>"
+     $('#details').html(`${commitsList}`)
+
+  })
+}
+
 // function searchRepositories() {
 //   let searchTerms = $('#searchTerms').val()
 //   fetch(`https://api.github.com/search/repositories?q=${searchTerms}`)
