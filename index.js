@@ -2,7 +2,8 @@ $(document).ready(function (){
 
 });
 
-function searchRepos() {
+
+function searchRepositories() {
   let searchTerms = $('#searchTerms').val()
   fetch(`https://api.github.com/search/repositories?q=${searchTerms}`)
   .then(function(response){
@@ -10,15 +11,39 @@ function searchRepos() {
   })
   .then(function(data){
   var repo = data.items[0]
-
-  var displayData = `${repo.name} - ${repo.description} - ${repo.html_url}`
+  var displayData = `${repo.name} - ${repo.description} - ${repo.html_url}<br> <a data-owner="${repo.owner.login}" data-name="${repo.name}"href="#" onclick="showCommits(this)">Show Commits</a>`
     $('#results').html(`${displayData}`)
   })
   .catch(function(error){
-
+    displayError()
   })
-
 }
+
+  function showCommits(el){
+    let repo = el.dataset.name
+    let owner = el.dataset.owner
+    fetch(`https://api.github.com/repos/${owner}/${repo}/commits`)
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(data){
+      let commitsList = '<ul>'
+      data.map(function(d){
+        let img = `<img height="50" src = "${d.author.avatar_url}">`
+        let sha = `Sha: ${d.sha}<br>`
+        let login = `Login: ${d.author.login }<br>`
+          return  commitsList +=`<li>${img} Owner: ${owner}<br> ${login} ${sha}</li>`
+       })
+       commitsList +="</ul>"
+       $('#details').html(`${commitsList}`)
+    })
+
+  }
+
+  function displayError(){
+    $('#errors').text("I'm sorry, there's been an error. Please try again.")
+
+  }
 
 
 
