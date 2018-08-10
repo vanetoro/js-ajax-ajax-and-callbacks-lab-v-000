@@ -13,6 +13,7 @@ function searchRepositories() {
   var repo = data.items[0]
   var img = `<img height="50"src="${repo.owner.avatar_url}"><br>`
   let login = `Login: ${repo.owner.login}<br>`
+  let search = `<h2>Search for: ${searchTerms}</h2>`
   var displayData = `${img} ${login} ${repo.name} - ${repo.description} - ${repo.html_url}<br> <a data-owner="${repo.owner.login}" data-name="${repo.name}"href="#" onclick="showCommits(this)">Show Commits</a>`
     $('#results').html(`${displayData}`)
   })
