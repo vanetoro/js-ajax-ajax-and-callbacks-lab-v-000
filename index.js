@@ -5,7 +5,7 @@ $(document).ready(function (){
 
 function searchRepositories() {
   let searchTerms = $('#searchTerms').val()
-  $.get(`https://api.github.com/search/repositories?q=${searchTerms}`)
+  fetch(`https://api.github.com/search/repositories?q=${searchTerms}`)
   .then(function(response){
     return response.json();
   })
@@ -25,7 +25,7 @@ function searchRepositories() {
   function showCommits(el){
     let repo = el.dataset.name
     let owner = el.dataset.owner
-    $.get(`https://api.github.com/repos/${owner}/${repo}/commits`)
+    fetch(`https://api.github.com/repos/${owner}/${repo}/commits`)
     .then(function(response){
       return response.json();
     })
